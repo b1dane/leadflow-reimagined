@@ -33,64 +33,71 @@
   --color-surface-elevated: var(--surface-elevated);
   --color-glow: var(--glow);
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 
-  /* Deep dark — Vite-inspired but warmer/neutral */
-  --background: oklch(0.16 0.012 260);
-  --foreground: oklch(0.96 0.005 260);
+  /* Warm dark — espresso/cocoa base, not cold blue */
+  --background: oklch(0.18 0.014 60);
+  --foreground: oklch(0.97 0.012 80);
 
-  --surface: oklch(0.19 0.014 260);
-  --surface-elevated: oklch(0.22 0.016 260);
+  --surface: oklch(0.22 0.018 60);
+  --surface-elevated: oklch(0.26 0.022 60);
 
-  --card: oklch(0.19 0.014 260);
-  --card-foreground: oklch(0.96 0.005 260);
-  --popover: oklch(0.19 0.014 260);
-  --popover-foreground: oklch(0.96 0.005 260);
+  --card: oklch(0.22 0.018 60);
+  --card-foreground: oklch(0.97 0.012 80);
+  --popover: oklch(0.22 0.018 60);
+  --popover-foreground: oklch(0.97 0.012 80);
 
-  /* Confident accent — electric teal/cyan, not candy */
-  --primary: oklch(0.82 0.14 195);
-  --primary-foreground: oklch(0.16 0.012 260);
-  --glow: oklch(0.78 0.16 200);
+  /* Confident warm gold accent */
+  --primary: oklch(0.82 0.13 75);
+  --primary-foreground: oklch(0.18 0.014 60);
+  --glow: oklch(0.78 0.16 65);
 
-  --secondary: oklch(0.24 0.018 260);
-  --secondary-foreground: oklch(0.96 0.005 260);
+  --secondary: oklch(0.28 0.022 60);
+  --secondary-foreground: oklch(0.97 0.012 80);
 
-  --muted: oklch(0.22 0.014 260);
-  --muted-foreground: oklch(0.65 0.012 260);
+  --muted: oklch(0.26 0.018 60);
+  --muted-foreground: oklch(0.72 0.022 75);
 
-  --accent: oklch(0.72 0.18 35);
-  --accent-foreground: oklch(0.16 0.012 260);
+  /* Warm amber accent for highlights */
+  --accent: oklch(0.74 0.16 50);
+  --accent-foreground: oklch(0.18 0.014 60);
 
-  --destructive: oklch(0.65 0.22 25);
+  --destructive: oklch(0.62 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(0.28 0.014 260);
-  --input: oklch(0.24 0.014 260);
-  --ring: oklch(0.82 0.14 195);
+  --border: oklch(0.32 0.018 60);
+  --input: oklch(0.28 0.018 60);
+  --ring: oklch(0.82 0.13 75);
 
   --gradient-glow: radial-gradient(
-    ellipse 80% 50% at 50% -10%,
-    oklch(0.78 0.16 200 / 0.15),
+    ellipse 80% 55% at 50% -10%,
+    oklch(0.78 0.16 65 / 0.22),
     transparent 70%
   );
   --gradient-text: linear-gradient(
     180deg,
-    oklch(0.98 0.005 260),
-    oklch(0.75 0.01 260)
+    oklch(0.99 0.012 80),
+    oklch(0.78 0.04 70)
   );
   --gradient-accent: linear-gradient(
     135deg,
-    oklch(0.82 0.14 195),
-    oklch(0.72 0.18 35)
+    oklch(0.86 0.14 80),
+    oklch(0.72 0.17 45)
+  );
+  --gradient-warm: linear-gradient(
+    180deg,
+    oklch(0.22 0.02 60) 0%,
+    oklch(0.18 0.014 60) 100%
   );
 
-  --shadow-glow: 0 0 40px oklch(0.78 0.16 200 / 0.25);
-  --shadow-card: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 8px 24px oklch(0 0 0 / 0.3);
+  --shadow-glow: 0 0 60px oklch(0.78 0.16 65 / 0.35);
+  --shadow-card: 0 1px 0 oklch(1 0 0 / 0.05) inset, 0 16px 40px oklch(0 0 0 / 0.35);
 }
 
 @layer base {
@@ -111,17 +118,21 @@
   }
 
   ::selection {
-    background-color: oklch(0.82 0.14 195 / 0.25);
+    background-color: oklch(0.82 0.13 75 / 0.3);
     color: var(--color-foreground);
   }
 }
 
 @layer utilities {
-  .bg-grid {
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+  .bg-grain {
     background-image:
-      linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
+      radial-gradient(oklch(1 0 0 / 0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
   }
   .text-gradient {
     background: var(--gradient-text);
@@ -140,5 +151,8 @@
   }
   .hero-glow {
     background: var(--gradient-glow);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
   }
 }
