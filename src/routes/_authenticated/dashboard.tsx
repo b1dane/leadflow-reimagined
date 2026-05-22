@@ -40,7 +40,7 @@ function Dashboard() {
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: ["leads"] });
 
-  const createMut = useMutation({ mutationFn: (d: Parameters<typeof create>[0]["data"]) => create({ data: d }), onSuccess: invalidate });
+  const createMut = useMutation({ mutationFn: (d: Record<string, unknown>) => create({ data: d as never }), onSuccess: invalidate });
   const updateMut = useMutation({ mutationFn: (v: { id: string; patch: Record<string, unknown> }) => update({ data: v }), onSuccess: invalidate });
   const deleteMut = useMutation({ mutationFn: (id: string) => remove({ data: { id } }), onSuccess: invalidate });
 
