@@ -48,11 +48,11 @@ function Nav() {
           <a href="#stories" className="hover:text-foreground transition-colors">Customers</a>
         </nav>
         <div className="flex items-center gap-3">
-          <a href="#login" className="hidden text-sm text-muted-foreground hover:text-foreground sm:block">
+          <a href="/login" className="hidden text-sm text-muted-foreground hover:text-foreground sm:block">
             Sign in
           </a>
           <a
-            href="#start"
+            href="/login"
             className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
           >
             Get a demo
@@ -91,7 +91,7 @@ function Hero() {
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <a
-              href="#start"
+              href="/login"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 py-3 text-sm font-medium text-primary-foreground transition-all hover:shadow-[var(--shadow-glow)]"
             >
               Get a personal demo
@@ -309,7 +309,7 @@ function Story() {
             </p>
             <div className="mt-8">
               <a
-                href="#start"
+                href="/login"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-5 py-2.5 text-sm font-medium text-foreground hover:bg-surface-elevated"
               >
                 Walk me through it <ArrowRight className="h-4 w-4" />
@@ -441,7 +441,7 @@ function Pricing() {
                 ))}
               </ul>
               <a
-                href="#start"
+                href="/login"
                 className={`mt-8 inline-flex w-full items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium transition-opacity ${
                   t.featured
                     ? "bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90"
@@ -473,7 +473,7 @@ function CTA() {
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <a
-            href="#start"
+            href="/login"
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 py-3 text-sm font-medium text-primary-foreground hover:shadow-[var(--shadow-glow)]"
           >
             Book a personal demo <ArrowRight className="h-4 w-4" />
