@@ -31,73 +31,49 @@
   --color-ring: var(--ring);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
-  --color-glow: var(--glow);
+  --color-navy: var(--navy);
 
-  --font-sans: "Instrument Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Instrument Serif", "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.375rem;
 
-  /* Warm dark — espresso/cocoa base, not cold blue */
-  --background: oklch(0.18 0.014 60);
-  --foreground: oklch(0.97 0.012 80);
+  /* Charcoal base */
+  --background: #2B2B2E;
+  --foreground: #FFFFFF;
 
-  --surface: oklch(0.22 0.018 60);
-  --surface-elevated: oklch(0.26 0.022 60);
+  --surface: #323235;
+  --surface-elevated: #3A3A3D;
 
-  --card: oklch(0.22 0.018 60);
-  --card-foreground: oklch(0.97 0.012 80);
-  --popover: oklch(0.22 0.018 60);
-  --popover-foreground: oklch(0.97 0.012 80);
+  --card: #323235;
+  --card-foreground: #FFFFFF;
+  --popover: #323235;
+  --popover-foreground: #FFFFFF;
 
-  /* Confident warm gold accent */
-  --primary: oklch(0.82 0.13 75);
-  --primary-foreground: oklch(0.18 0.014 60);
-  --glow: oklch(0.78 0.16 65);
+  /* Deep Orange CTA */
+  --primary: #FF8C00;
+  --primary-foreground: #FFFFFF;
 
-  --secondary: oklch(0.28 0.022 60);
-  --secondary-foreground: oklch(0.97 0.012 80);
+  /* Navy Blue */
+  --navy: #03017C;
+  --secondary: #03017C;
+  --secondary-foreground: #FFFFFF;
 
-  --muted: oklch(0.26 0.018 60);
-  --muted-foreground: oklch(0.72 0.022 75);
+  --muted: #3A3A3D;
+  --muted-foreground: #B5B5B8;
 
-  /* Warm amber accent for highlights */
-  --accent: oklch(0.74 0.16 50);
-  --accent-foreground: oklch(0.18 0.014 60);
+  --accent: #FF8C00;
+  --accent-foreground: #FFFFFF;
 
-  --destructive: oklch(0.62 0.22 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive: #E53935;
+  --destructive-foreground: #FFFFFF;
 
-  --border: oklch(0.32 0.018 60);
-  --input: oklch(0.28 0.018 60);
-  --ring: oklch(0.82 0.13 75);
-
-  --gradient-glow: radial-gradient(
-    ellipse 80% 55% at 50% -10%,
-    oklch(0.78 0.16 65 / 0.22),
-    transparent 70%
-  );
-  --gradient-text: linear-gradient(
-    180deg,
-    oklch(0.99 0.012 80),
-    oklch(0.78 0.04 70)
-  );
-  --gradient-accent: linear-gradient(
-    135deg,
-    oklch(0.86 0.14 80),
-    oklch(0.72 0.17 45)
-  );
-  --gradient-warm: linear-gradient(
-    180deg,
-    oklch(0.22 0.02 60) 0%,
-    oklch(0.18 0.014 60) 100%
-  );
-
-  --shadow-glow: 0 0 60px oklch(0.78 0.16 65 / 0.35);
-  --shadow-card: 0 1px 0 oklch(1 0 0 / 0.05) inset, 0 16px 40px oklch(0 0 0 / 0.35);
+  --border: #3F3F43;
+  --input: #3A3A3D;
+  --ring: #FF8C00;
 }
 
 @layer base {
@@ -113,46 +89,33 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
   }
 
+  h1, h2, h3, h4, h5, h6, .font-bold, strong {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
   ::selection {
-    background-color: oklch(0.82 0.13 75 / 0.3);
-    color: var(--color-foreground);
+    background-color: #FF8C00;
+    color: #FFFFFF;
   }
 }
 
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.015em;
+    font-weight: 700;
+    letter-spacing: -0.025em;
   }
-  .bg-grain {
-    background-image:
-      radial-gradient(oklch(1 0 0 / 0.025) 1px, transparent 1px);
-    background-size: 3px 3px;
+  .bg-navy {
+    background-color: var(--navy);
   }
-  .text-gradient {
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .text-navy {
+    color: var(--navy);
   }
-  .text-gradient-accent {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .glow-primary {
-    box-shadow: var(--shadow-glow);
-  }
-  .hero-glow {
-    background: var(--gradient-glow);
-  }
-  .shadow-card {
-    box-shadow: var(--shadow-card);
+  .border-navy {
+    border-color: var(--navy);
   }
 }
