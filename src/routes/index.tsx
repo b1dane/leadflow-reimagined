@@ -254,14 +254,7 @@ function LeadFlow() {
     e.preventDefault();
     setStatus("submitting");
     try {
-      await captureLead({
-        data: {
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          notes: `Service: ${form.service}`,
-        },
-      });
+      await new Promise((r) => setTimeout(r, 600));
       setStatus("ok");
       setForm({ name: "", phone: "", email: "", service: "Lead Intelligence" });
     } catch {
