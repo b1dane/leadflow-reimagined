@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, Activity, Cpu, LineChart, Shield, Zap, Radar, CheckCircle2 } from "lucide-react";
-import { captureLead } from "@/lib/leads.functions";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
