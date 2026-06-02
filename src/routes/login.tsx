@@ -1,5 +1,5 @@
-import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState, type FormEvent } from "react";
 import { Sparkles, ArrowRight, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
@@ -21,9 +21,11 @@ function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  if (!loading && session) {
-    throw redirect({ to: "/dashboard" });
-  }
+  useEffect(() => {
+    if (!loading && session) {
+      navigate({ to: "/dashboard" });
+    }
+  }, [loading, session, navigate]);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();

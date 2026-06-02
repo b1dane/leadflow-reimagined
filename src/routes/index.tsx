@@ -7,13 +7,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Velocity Systems — Deploying the IMAGITV Protocol" },
+      { title: "Velocity Systems — Deploying the Velocity Protocol" },
       {
         name: "description",
         content:
-          "Velocity Systems deploys the IMAGITV Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
+          "Velocity Systems deploys the Velocity Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
       },
-      { property: "og:title", content: "Velocity Systems — IMAGITV Protocol" },
+      { property: "og:title", content: "Velocity Systems — Velocity Protocol" },
       {
         property: "og:description",
         content: "Automated lead intelligence and tactical growth systems for small businesses.",
@@ -69,7 +69,7 @@ function Hero() {
             Velocity Systems:
             <br />
             <span className="bg-gradient-to-r from-electric via-white to-purple bg-clip-text text-transparent">
-              Deploying the IMAGITV Protocol.
+              Deploying the Velocity Protocol.
             </span>
           </h1>
 
@@ -142,7 +142,7 @@ function Protocol() {
       <div className="mx-auto max-w-7xl px-6 py-28">
         <div className="mx-auto max-w-2xl text-center">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-electric">
-            // The IMAGITV Protocol
+            // The Velocity Protocol
           </p>
           <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             One engine. Three deployments.
@@ -417,7 +417,7 @@ function Footer() {
           </span>
         </div>
         <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-          © 2026 · IMAGITV Protocol v4.2
+          © 2026 · Velocity Protocol v4.2
         </p>
       </div>
     </footer>
