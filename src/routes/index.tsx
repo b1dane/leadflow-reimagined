@@ -417,7 +417,7 @@ function Footer() {
           </span>
         </div>
         <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-          © 2026 · IMAGITV Protocol v4.2
+          © 2026 · Velocity Protocol v4.2
         </p>
       </div>
     </footer>
