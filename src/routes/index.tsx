@@ -7,13 +7,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Velocity Systems — Deploying the IMAGITV Protocol" },
+      { title: "Velocity Systems — Deploying the Velocity Protocol" },
       {
         name: "description",
         content:
-          "Velocity Systems deploys the IMAGITV Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
+          "Velocity Systems deploys the Velocity Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
       },
-      { property: "og:title", content: "Velocity Systems — IMAGITV Protocol" },
+      { property: "og:title", content: "Velocity Systems — Velocity Protocol" },
       {
         property: "og:description",
         content: "Automated lead intelligence and tactical growth systems for small businesses.",
