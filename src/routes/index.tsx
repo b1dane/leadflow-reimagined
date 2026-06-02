@@ -142,7 +142,7 @@ function Protocol() {
       <div className="mx-auto max-w-7xl px-6 py-28">
         <div className="mx-auto max-w-2xl text-center">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-electric">
-            // The IMAGITV Protocol
+            // The Velocity Protocol
           </p>
           <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             One engine. Three deployments.
