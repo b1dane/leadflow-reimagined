@@ -21,9 +21,11 @@ function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  if (!loading && session) {
-    throw redirect({ to: "/dashboard" });
-  }
+  useEffect(() => {
+    if (!loading && session) {
+      navigate({ to: "/dashboard" });
+    }
+  }, [loading, session, navigate]);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
