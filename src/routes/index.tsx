@@ -69,7 +69,7 @@ function Hero() {
             Velocity Systems:
             <br />
             <span className="bg-gradient-to-r from-electric via-white to-purple bg-clip-text text-transparent">
-              Deploying the IMAGITV Protocol.
+              Deploying the Velocity Protocol.
             </span>
           </h1>
 
