@@ -38,14 +38,21 @@ function Nav() {
           <a href="#protocol" className="transition-colors hover:text-foreground">Protocol</a>
           <a href="#systems" className="transition-colors hover:text-foreground">Systems</a>
           <a href="#leadflow" className="transition-colors hover:text-foreground">LeadFlow</a>
-          <a href="/login" className="transition-colors hover:text-foreground">Sign in</a>
         </nav>
-        <a
-          href="#leadflow"
-          className="inline-flex items-center gap-2 rounded-md gradient-cta px-5 py-2.5 font-display text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90"
-        >
-          Deploy
-        </a>
+        <div className="flex items-center gap-3">
+          <Link
+            to="/login"
+            className="inline-flex items-center justify-center rounded-md border border-white/20 bg-white/[0.02] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-widest text-foreground transition-colors hover:bg-white/[0.04]"
+          >
+            Sign in
+          </Link>
+          <a
+            href="#leadflow"
+            className="inline-flex items-center gap-2 rounded-md gradient-cta px-5 py-2.5 font-display text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90"
+          >
+            Deploy
+          </a>
+        </div>
       </div>
     </header>
   );
