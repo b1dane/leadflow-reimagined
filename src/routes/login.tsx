@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/use-auth";
 export const Route = createFileRoute("/login")({
   component: LoginPage,
   head: () => ({
-    meta: [{ title: "Sign in — Leadflow" }, { name: "description", content: "Sign in to Leadflow." }],
+    meta: [{ title: "Sign in — VeloSys" }, { name: "description", content: "Sign in to VeloSys." }],
   }),
 });
 
@@ -76,7 +76,7 @@ function LoginPage() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-card">
             <Sparkles className="h-4 w-4" strokeWidth={2.25} />
           </div>
-          <span className="font-display text-2xl tracking-tight">Leadflow</span>
+          <span className="font-display text-2xl tracking-tight">VeloSys</span>
         </Link>
 
         <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-8 shadow-card">

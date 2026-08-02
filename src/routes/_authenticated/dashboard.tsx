@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
-  head: () => ({ meta: [{ title: "Dashboard — Leadflow" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — VeloSys" }] }),
 });
 
 const STATUSES = ["new", "contacted", "qualified", "won", "lost"] as const;
@@ -64,7 +64,7 @@ function Dashboard() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-card">
               <Sparkles className="h-4 w-4" strokeWidth={2.25} />
             </div>
-            <span className="font-display text-xl tracking-tight">Leadflow</span>
+            <span className="font-display text-xl tracking-tight">VeloSys</span>
           </Link>
           <div className="flex items-center gap-3">
             <span className="hidden sm:block text-sm text-muted-foreground">{user?.email}</span>
