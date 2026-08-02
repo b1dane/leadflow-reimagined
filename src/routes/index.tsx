@@ -7,13 +7,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Velocity Systems — Deploying the Velocity Protocol" },
+      { title: "VeloSys — Automated Lead Intelligence Systems" },
       {
         name: "description",
         content:
-          "Velocity Systems deploys the Velocity Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
+          "VeloSys deploys the Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
       },
-      { property: "og:title", content: "Velocity Systems — Velocity Protocol" },
+      { property: "og:title", content: "VeloSys — Automated Lead Intelligence" },
       {
         property: "og:description",
         content: "Automated lead intelligence and tactical growth systems for small businesses.",
@@ -31,7 +31,7 @@ function Nav() {
             <Activity className="h-4 w-4 text-white" strokeWidth={2.5} />
           </div>
           <span className="font-display text-lg font-bold tracking-widest text-foreground">
-            VELOCITY
+            VELOSYS
           </span>
         </Link>
         <nav className="hidden items-center gap-10 text-sm font-medium text-muted-foreground md:flex">
@@ -73,10 +73,10 @@ function Hero() {
           </div>
 
           <h1 className="mx-auto mt-8 max-w-4xl font-display text-4xl font-bold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Velocity Systems:
+            VeloSys:
             <br />
             <span className="bg-gradient-to-r from-electric via-white to-purple bg-clip-text text-transparent">
-              Deploying the Velocity Protocol.
+              Deploying the VeloSys Protocol.
             </span>
           </h1>
 
@@ -149,7 +149,7 @@ function Protocol() {
       <div className="mx-auto max-w-7xl px-6 py-28">
         <div className="mx-auto max-w-2xl text-center">
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-electric">
-            // The Velocity Protocol
+            // The VeloSys Protocol
           </p>
           <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             One engine. Three deployments.
@@ -370,7 +370,7 @@ function LeadFlow() {
           )}
           {status === "error" && (
             <p className="mt-4 text-center font-mono text-xs text-destructive">
-              Transmission failed. Retry or email ops@velocitysystems.io.
+              Transmission failed. Retry or email ops@velosys.io.
             </p>
           )}
         </form>
@@ -420,11 +420,11 @@ function Footer() {
             <Activity className="h-3.5 w-3.5 text-white" strokeWidth={2.5} />
           </div>
           <span className="font-display text-sm font-bold tracking-widest text-foreground">
-            VELOCITY SYSTEMS
+            VELOSYS
           </span>
         </div>
         <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-          © 2026 · Velocity Protocol v4.2
+          © 2026 · VeloSys Protocol v4.2
         </p>
       </div>
     </footer>
