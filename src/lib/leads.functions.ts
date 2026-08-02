@@ -1,7 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const leadInputSchema = z.object({
   name: z.string().trim().min(1).max(120),
@@ -76,6 +75,7 @@ const captureSchema = z.object({
 export const captureLead = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => captureSchema.parse(input))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("leads").insert({
       user_id: data.userId,
       name: data.name,
