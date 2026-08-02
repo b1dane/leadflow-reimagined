@@ -7,13 +7,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "VeloSys — Deploying the VeloSys Protocol" },
+      { title: "VeloSys — Automated Lead Intelligence Systems" },
       {
         name: "description",
         content:
-          "VeloSys deploys the VeloSys Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
+          "VeloSys deploys the Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
       },
-      { property: "og:title", content: "VeloSys — VeloSys Protocol" },
+      { property: "og:title", content: "VeloSys — Automated Lead Intelligence" },
       {
         property: "og:description",
         content: "Automated lead intelligence and tactical growth systems for small businesses.",
