@@ -5,16 +5,16 @@ export const Route = createFileRoute("/how-it-works")({
   component: HowItWorksPage,
   head: () => ({
     meta: [
-      { title: "How It Works — VeloSys | AI Lead Response in 3 Steps" },
+      { title: "How It Works — VeloSys | Lead Response in 3 Steps" },
       {
         name: "description",
         content:
-          "Connect your number. AI responds instantly. Booked appointments show up. See how VeloSys works in 3 simple steps.",
+          "Connect your number. It responds instantly. Booked appointments show up. See how VeloSys works in 3 simple steps.",
       },
       { property: "og:title", content: "How It Works — VeloSys" },
       {
         property: "og:description",
-        content: "Connect your number. AI responds instantly. Booked appointments show up.",
+        content: "Connect your number. It responds instantly. Booked appointments show up.",
       },
     ],
   }),
@@ -36,12 +36,12 @@ const STEPS = [
   {
     number: "2",
     icon: MessageSquare,
-    title: "AI responds to every lead instantly",
-    desc: "Every text, every call-in — answered in under 8 seconds. The AI introduces itself, asks what the customer needs, qualifies the lead, and books the appointment.",
+    title: "Responds to every lead instantly",
+    desc: "Every text, every call-in — answered in under 8 seconds. The tool introduces itself, asks what the customer needs, qualifies the lead, and books the appointment.",
     details: [
       "Responds in under 8 seconds",
       "Works 24/7, including holidays",
-      "AI sounds like a real person",
+      "Sounds like a real person",
       "Handles multiple leads at once",
     ],
   },
@@ -173,14 +173,14 @@ function HowItWorksPage() {
                       </div>
                     </div>
                     <span className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold" style={{ backgroundColor: "rgba(5,150,105,0.1)", color: "#059669" }}>
-                      AI responded
+                      Tool responded
                     </span>
                   </div>
                   <p className="mt-2 text-sm" style={{ color: "#1F2937" }}>
                     Sarah M. — AC repair — Need someone today
                   </p>
                   <p className="mt-1 text-sm" style={{ color: "#6B7280" }}>
-                    AI: &ldquo;Hi Sarah, we can get someone out today. What's your address?&rdquo;
+                    Tool: &ldquo;Hi Sarah, we can get someone out today. What's your address?&rdquo;
                   </p>
                 </div>
 
@@ -228,7 +228,7 @@ function HowItWorksPage() {
                     James K. — Roof repair — 1,800 sq ft, 3 leaks
                   </p>
                   <p className="mt-1 text-sm" style={{ color: "#6B7280" }}>
-                    AI gathered details · Ready for you to call back
+                    Details gathered · Ready for you to call back
                   </p>
                 </div>
               </div>

@@ -9,12 +9,12 @@ export const Route = createFileRoute("/faq")({
       {
         name: "description",
         content:
-          "Find answers about VeloSys AI lead response: how fast it responds, setup time, pricing, cancellation, data security, and more.",
+          "Find answers about VeloSys lead response: how fast it responds, setup time, pricing, cancellation, data security, and more.",
       },
       { property: "og:title", content: "FAQ — VeloSys" },
       {
         property: "og:description",
-        content: "Answers to common questions about VeloSys AI lead response for contractors.",
+        content: "Answers to common questions about VeloSys lead response for contractors.",
       },
     ],
   }),
@@ -26,14 +26,14 @@ const FAQ_CATEGORIES = [
     questions: [
       {
         q: "What is VeloSys?",
-        a: "VeloSys is an AI that texts your leads back instantly. When a customer texts or calls, the AI responds in under 8 seconds — qualifies them, answers questions, and books the appointment. You keep working while the AI handles the front end.",
+        a: "VeloSys texts your leads back instantly. When a customer texts or calls, the tool responds in under 8 seconds — qualifies them, answers questions, and books the appointment. You keep working while the tool handles the front end.",
       },
       {
         q: "Who is VeloSys for?",
         a: "Home-service contractors who take leads by phone or text: plumbers, HVAC, roofers, electricians, junk removal, landscapers, painters, and any other trade where speed-to-lead matters.",
       },
       {
-        q: "How is this different from other AI tools?",
+        q: "How is this different from other tools?",
         a: "VeloSys has one focus: respond to every lead instantly. No complex software suite. No add-on costs. No per-user fees. Single plan, $200/month, everything included. Most competitors charge more, require contracts, or sell you a platform with features you don't need.",
       },
     ],
@@ -43,7 +43,7 @@ const FAQ_CATEGORIES = [
     questions: [
       {
         q: "How long does setup take?",
-        a: "About 5 minutes. You connect your existing phone number to VeloSys, and the AI starts responding immediately. No hardware. No installation. No training.",
+        a: "About 5 minutes. You connect your existing phone number to VeloSys, and it starts responding immediately. No hardware. No installation. No training.",
       },
       {
         q: "Do I need to install anything?",
@@ -84,16 +84,16 @@ const FAQ_CATEGORIES = [
     category: "Technical",
     questions: [
       {
-        q: "How fast does the AI respond?",
+        q: "How fast does it respond?",
         a: "Under 8 seconds, 24/7. Whether it's 2 PM on a Tuesday or 2 AM on a Sunday, every lead gets an instant response. Industry research shows responding within 60 seconds makes you 391% more likely to convert.",
       },
       {
-        q: "What if a lead asks something the AI can't answer?",
-        a: "The AI hands off to you immediately. You get a notification and take over the conversation from your phone or dashboard. No lost leads, no awkward AI replies.",
+        q: "What if a lead asks something the tool can't answer?",
+        a: "The tool hands off to you immediately. You get a notification and take over the conversation from your phone or dashboard. No lost leads, no awkward replies.",
       },
       {
-        q: "Can I see the AI's conversations?",
-        a: "Yes. Every conversation is logged in your VeloSys dashboard. You can read the full history, see what the AI said, and jump in anytime.",
+        q: "Can I see the conversations?",
+        a: "Yes. Every conversation is logged in your VeloSys dashboard. You can read the full history, see what the tool said, and jump in anytime.",
       },
       {
         q: "Is my data secure?",

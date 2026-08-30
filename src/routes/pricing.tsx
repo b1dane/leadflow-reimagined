@@ -9,7 +9,7 @@ export const Route = createFileRoute("/pricing")({
       {
         name: "description",
         content:
-          "Simple pricing for contractors. $200/month. No contracts. Cancel anytime. Everything included — instant AI response, smart qualification, appointment booking.",
+          "Simple pricing for contractors. $200/month. No contracts. Cancel anytime. Everything included — instant lead response, smart qualification, appointment booking.",
       },
       { property: "og:title", content: "Pricing — VeloSys" },
       {
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/pricing")({
 });
 
 const FEATURES = [
-  { icon: Zap, label: "Instant AI lead response (SMS)" },
+  { icon: Zap, label: "Instant lead response (SMS)" },
   { icon: BarChart3, label: "Smart lead qualification" },
   { icon: Calendar, label: "Appointment booking" },
   { icon: Activity, label: "One dashboard for all leads" },

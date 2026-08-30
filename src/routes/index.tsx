@@ -22,17 +22,17 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "VeloSys — AI Lead Response for Contractors" },
+      { title: "VeloSys — Lead Response for Contractors" },
       {
         name: "description",
         content:
-          "AI that texts your leads back instantly. Qualifies them, books appointments, and never misses a call.",
+          "Tool that texts your leads back instantly. Qualifies them, books appointments, and never misses a call.",
       },
-      { property: "og:title", content: "VeloSys — AI Lead Response for Contractors" },
+      { property: "og:title", content: "VeloSys — Lead Response for Contractors" },
       {
         property: "og:description",
         content:
-          "AI that texts your leads back instantly. Never miss a customer again.",
+          "Tool that texts your leads back instantly. Never miss a customer again.",
       },
     ],
   }),
@@ -55,7 +55,7 @@ function Hero() {
             </p>
             <h1 className="mt-6 text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl" style={{ color: "#E5E7EB" }}>
               You're on a job. Your leads are being texted right now{" "}
-              <span style={{ color: "#1D4ED8" }}>— by an AI.</span>
+              <span style={{ color: "#1D4ED8" }}>— by a tool.</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed md:text-xl" style={{ color: "#9CA3AF" }}>
               VeloSys texts every lead back instantly. Qualifies them.
@@ -104,7 +104,7 @@ function ConversationScreenshot() {
           <MessageSquare className="h-5 w-5" style={{ color: "#1D4ED8" }} />
         </div>
         <div>
-          <p className="text-sm font-semibold" style={{ color: "#E5E7EB" }}>VeloSys AI</p>
+          <p className="text-sm font-semibold" style={{ color: "#E5E7EB" }}>VeloSys</p>
           <p className="text-[10px]" style={{ color: "#9CA3AF" }}>Online · Responds in seconds</p>
         </div>
       </div>
@@ -121,13 +121,13 @@ function ConversationScreenshot() {
           </div>
         </div>
 
-        {/* AI response */}
+        {/* Tool response */}
         <div className="flex items-start justify-end gap-2">
           <div className="rounded-2xl rounded-br-sm gradient-cta px-4 py-2.5 max-w-[85%]">
             <p className="text-sm text-white">
               Hi! Sorry about the heat — that's rough. Yes, we can get someone out today. What's your zip code, and is now a good time for our team to call?
             </p>
-            <p className="mt-1 text-right text-[10px]" style={{ color: "rgba(255,255,255,0.6)" }}>3:14 PM · AI</p>
+            <p className="mt-1 text-right text-[10px]" style={{ color: "rgba(255,255,255,0.6)" }}>3:14 PM · Tool</p>
           </div>
         </div>
 
@@ -141,13 +141,13 @@ function ConversationScreenshot() {
           </div>
         </div>
 
-        {/* AI confirmation */}
+        {/* Tool confirmation */}
         <div className="flex items-start justify-end gap-2">
           <div className="rounded-2xl rounded-br-sm gradient-cta px-4 py-2.5 max-w-[85%]">
             <p className="text-sm text-white">
               Got it. I've scheduled a technician to come by between 4-6 PM today. You'll get a text when they're on the way. {/* z } */}
             </p>
-            <p className="mt-1 text-right text-[10px]" style={{ color: "rgba(255,255,255,0.6)" }}>3:15 PM · AI</p>
+            <p className="mt-1 text-right text-[10px]" style={{ color: "rgba(255,255,255,0.6)" }}>3:15 PM · Tool</p>
           </div>
         </div>
 
@@ -271,8 +271,8 @@ function HowItWorks() {
     {
       step: "02",
       icon: MessageSquare,
-      title: "AI responds instantly",
-      desc: "Every text, every call &mdash; answered in seconds. The AI qualifies, answers questions, and books jobs.",
+      title: "Responds instantly",
+      desc: "Every text, every call &mdash; answered in seconds. The tool qualifies, answers questions, and books jobs.",
     },
     {
       step: "03",
@@ -333,7 +333,7 @@ function Features() {
     {
       icon: BarChart3,
       title: "Smart qualification",
-      desc: "The AI asks what service, how urgent, when they're available. You get qualified leads, not tire-kickers.",
+      desc: "The tool asks what service, how urgent, when they're available. You get qualified leads, not tire-kickers.",
     },
     {
       icon: Calendar,
@@ -492,7 +492,7 @@ function PricingPreview() {
           </p>
           <ul className="mx-auto mt-8 max-w-xs space-y-3 text-left">
             {[
-              "Instant AI lead response",
+              "Instant lead response",
               "Smart lead qualification",
               "Appointment booking",
               "One dashboard for all leads",
@@ -524,16 +524,16 @@ function PricingPreview() {
 function FAQ() {
   const faqs = [
     {
-      q: "How fast does the AI respond?",
+      q: "How fast does it respond?",
       a: "Under 8 seconds, 24/7. Whether it's 2 PM on a Tuesday or 3 AM on Sunday, every lead gets an instant response.",
     },
     {
       q: "What if a lead needs a human?",
-      a: "The AI hands off to you immediately when needed. You get a notification and take over the conversation right from your phone.",
+      a: "The tool hands off to you immediately when needed. You get a notification and take over the conversation right from your phone.",
     },
     {
       q: "What tools do I need to get started?",
-      a: "Just a phone number. Nothing to install, nothing to configure. You link your number and the AI starts working immediately.",
+      a: "Just a phone number. Nothing to install, nothing to configure. You link your number and it starts working immediately.",
     },
     {
       q: "Can I cancel anytime?",

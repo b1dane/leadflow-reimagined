@@ -77,11 +77,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "VeloSys — AI Lead Response for Contractors" },
-      { name: "description", content: "AI that texts your leads back instantly. Qualifies them, books appointments, and never misses a call." },
+      { title: "VeloSys — Lead Response for Contractors" },
+      { name: "description", content: "Tool that texts your leads back instantly. Qualifies them, books appointments, and never misses a call." },
       { name: "author", content: "VeloSys" },
-      { property: "og:title", content: "VeloSys — AI Lead Response for Contractors" },
-      { property: "og:description", content: "AI that texts your leads back instantly. Never miss a customer again." },
+      { property: "og:title", content: "VeloSys — Lead Response for Contractors" },
+      { property: "og:description", content: "Tool that texts your leads back instantly. Never miss a customer again." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@VeloSys" },
@@ -257,7 +257,7 @@ function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed" style={{ color: "#9CA3AF" }}>
-              AI that texts your leads back instantly. Qualifies them.
+              Tool that texts your leads back instantly. Qualifies them.
               Books appointments. You just show up and work.
             </p>
           </div>
