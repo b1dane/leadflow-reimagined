@@ -62,6 +62,32 @@ export const deleteLead = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
+// Landing page intake — no auth, stores lead for review.
+// Uses admin client (bypasses RLS). Needs SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SERVICE_KEY.
+const intakeSchema = z.object({
+  name: z.string().trim().min(1).max(120),
+  phone: z.string().trim().max(40).optional().or(z.literal("")),
+  email: z.string().trim().email().max(255).optional().or(z.literal("")),
+  service: z.string().trim().max(120).optional().or(z.literal("")),
+});
+
+export const submitIntake = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) => intakeSchema.parse(input))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("leads").insert({
+      user_id: "00000000-0000-0000-0000-000000000000",
+      name: data.name,
+      email: data.email || null,
+      phone: data.phone || null,
+      notes: data.service ? `Service interested in: ${data.service}` : null,
+      source: "landing-intake",
+      status: "new",
+    });
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
 // Public capture — no auth, uses admin client. Validates user_id exists.
 const captureSchema = z.object({
   userId: z.string().uuid(),

@@ -68,18 +68,18 @@ function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background bg-grain flex items-center justify-center px-6 py-12">
+    <main className="min-h-screen flex items-center justify-center px-6 py-12" style={{ backgroundColor: "#000000", backgroundImage: "radial-gradient(ellipse at top, #0b0b16 0%, #000000 70%)" }}>
       <div className="absolute inset-x-0 top-0 h-[480px] hero-glow pointer-events-none" />
       <div className="relative w-full max-w-md">
         <Link to="/" className="mb-8 flex items-center gap-2.5 justify-center">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-card">
             <Sparkles className="h-4 w-4" strokeWidth={2.25} />
           </div>
-          <span className="font-display text-2xl tracking-tight">VeloSys</span>
+          <span className="text-2xl tracking-tight font-bold" style={{ color: "#E5E7EB" }}>VeloSys</span>
         </Link>
 
         <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-xl p-8 shadow-card">
-          <h1 className="font-display text-3xl text-gradient">
+          <h1 className="text-3xl font-bold" style={{ color: "#E5E7EB" }}>
             {mode === "signin" ? "Welcome back." : "Create your account."}
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -88,7 +88,7 @@ function LoginPage() {
 
           <button
             onClick={google}
-            className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-4 py-2.5 text-sm font-medium hover:bg-surface-elevated transition"
+            className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium hover:bg-surface-elevated transition"
           >
             <GoogleIcon /> Continue with Google
           </button>
@@ -119,7 +119,7 @@ function LoginPage() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-95 disabled:opacity-60"
+              className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-primary to-accent px-4 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-95 disabled:opacity-60"
             >
               {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <>{mode === "signin" ? "Sign in" : "Create account"} <ArrowRight className="h-3.5 w-3.5" /></>}
             </button>

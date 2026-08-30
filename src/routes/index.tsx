@@ -1,120 +1,93 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { ArrowRight, Activity, Cpu, LineChart, Shield, Zap, Radar, CheckCircle2 } from "lucide-react";
-
+import {
+  ArrowRight,
+  MessageSquare,
+  CheckCircle,
+  Zap,
+  Calendar,
+  BarChart3,
+  Smartphone,
+  Phone,
+  Activity,
+  ChevronDown,
+  Clock,
+  Star,
+  Shield,
+} from "lucide-react";
+import { submitIntake } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "VeloSys — Automated Lead Intelligence Systems" },
+      { title: "VeloSys — AI Lead Response for Contractors" },
       {
         name: "description",
         content:
-          "VeloSys deploys the Protocol — automated lead intelligence and tactical growth systems engineered for small businesses.",
+          "AI that texts your leads back instantly. Qualifies them, books appointments, and never misses a call.",
       },
-      { property: "og:title", content: "VeloSys — Automated Lead Intelligence" },
+      { property: "og:title", content: "VeloSys — AI Lead Response for Contractors" },
       {
         property: "og:description",
-        content: "Automated lead intelligence and tactical growth systems for small businesses.",
+        content:
+          "AI that texts your leads back instantly. Never miss a customer again.",
       },
     ],
   }),
 });
 
-function Nav() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-black/60 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md gradient-cta">
-            <Activity className="h-4 w-4 text-white" strokeWidth={2.5} />
-          </div>
-          <span className="font-display text-lg font-bold tracking-widest text-foreground">
-            VELOSYS
-          </span>
-        </Link>
-        <nav className="hidden items-center gap-10 text-sm font-medium text-muted-foreground md:flex">
-          <a href="#protocol" className="transition-colors hover:text-foreground">Protocol</a>
-          <a href="#systems" className="transition-colors hover:text-foreground">Systems</a>
-          <a href="#leadflow" className="transition-colors hover:text-foreground">LeadFlow</a>
-        </nav>
-        <div className="flex items-center gap-3">
-          <Link
-            to="/login"
-            className="inline-flex items-center justify-center rounded-md border border-white/20 bg-white/[0.02] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-widest text-foreground transition-colors hover:bg-white/[0.04]"
-          >
-            Sign in
-          </Link>
-          <a
-            href="#leadflow"
-            className="inline-flex items-center gap-2 rounded-md gradient-cta px-5 py-2.5 font-display text-xs font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90"
-          >
-            Deploy
-          </a>
-        </div>
-      </div>
-    </header>
-  );
-}
-
+/* ── HERO SECTION (dark) ── */
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24" style={{ backgroundColor: "#000000" }}>
       <div className="absolute inset-0 grid-bg opacity-60" />
-      <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-electric/10 blur-[120px]" />
-      <div className="absolute right-0 top-40 h-[400px] w-[400px] rounded-full bg-purple/15 blur-[100px]" />
+      <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full" style={{ background: "rgba(29,78,216,0.1)", filter: "blur(120px)" }} />
+      <div className="absolute right-0 top-40 h-[400px] w-[400px] rounded-full" style={{ background: "rgba(245,158,11,0.12)", filter: "blur(100px)" }} />
 
-      <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-24 md:pt-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-electric/40 bg-electric/5 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-electric">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-electric" />
-            Protocol Online · v4.2
+      <div className="relative mx-auto max-w-6xl px-6">
+        <div className="flex flex-col items-center gap-12 md:flex-row md:gap-16">
+          {/* Left: Copy */}
+          <div className="flex-1 text-center md:text-left">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>
+              // Never miss a lead again
+            </p>
+            <h1 className="mt-6 text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl" style={{ color: "#E5E7EB" }}>
+              You're on a job. Your leads are being texted right now{" "}
+              <span style={{ color: "#1D4ED8" }}>— by an AI.</span>
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed md:text-xl" style={{ color: "#9CA3AF" }}>
+              VeloSys texts every lead back instantly. Qualifies them.
+              Books the appointment. You just show up and do the work.
+            </p>
+
+            <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 md:justify-start">
+              <a
+                href="#get-started"
+                className="btn-primary w-full sm:w-auto font-semibold text-sm uppercase tracking-wider"
+              >
+                Get more leads
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="tel:+183****0199"
+                className="inline-flex h-14 w-full sm:w-auto items-center justify-center gap-2 rounded-lg px-7 text-sm font-semibold transition-colors"
+                style={{ color: "#E5E7EB", border: "2px solid rgba(255,255,255,0.15)" }}
+              >
+                <Phone className="h-4 w-4" />
+                (832) 555-0199
+              </a>
+            </div>
+
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#9CA3AF" }}>
+              No contracts &middot; $200/mo &middot; Cancel anytime
+            </p>
           </div>
 
-          <h1 className="mx-auto mt-8 max-w-4xl font-display text-4xl font-bold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            VeloSys:
-            <br />
-            <span className="bg-gradient-to-r from-electric via-white to-purple bg-clip-text text-transparent">
-              Deploying the VeloSys Protocol.
-            </span>
-          </h1>
-
-          <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            We provide small businesses with automated lead intelligence and tactical growth
-            systems.
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#leadflow"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md gradient-cta px-7 font-display text-xs font-bold uppercase tracking-widest text-white shadow-[0_0_40px_-10px_rgba(29,78,216,0.6)] transition-opacity hover:opacity-90"
-            >
-              Initiate LeadFlow
-              <ArrowRight className="h-4 w-4" />
-            </a>
-            <a
-              href="#protocol"
-              className="inline-flex h-12 items-center justify-center rounded-md border border-purple/50 bg-white/[0.02] px-7 font-display text-xs font-bold uppercase tracking-widest text-foreground transition-colors hover:bg-white/[0.04]"
-            >
-              View Protocol
-            </a>
-          </div>
-
-          {/* Telemetry strip */}
-          <div className="mx-auto mt-16 grid max-w-3xl grid-cols-3 gap-px overflow-hidden rounded-lg border border-border/60 bg-border/40">
-            {[
-              { v: "3.4×", l: "Pipeline Lift" },
-              { v: "<8 min", l: "Lead Response" },
-              { v: "99.97%", l: "Uptime" },
-            ].map((s) => (
-              <div key={s.l} className="bg-black/80 px-4 py-5">
-                <div className="font-display text-2xl font-bold text-foreground">{s.v}</div>
-                <div className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  {s.l}
-                </div>
-              </div>
-            ))}
+          {/* Right: Conversation visual */}
+          <div className="flex-1 w-full max-w-sm mx-auto md:mx-0">
+            <ConversationScreenshot />
           </div>
         </div>
       </div>
@@ -122,60 +95,97 @@ function Hero() {
   );
 }
 
-function Protocol() {
-  const modules = [
-    {
-      icon: Radar,
-      code: "01 / SIGNAL",
-      title: "Intent Detection",
-      body: "Continuous monitoring across web, social, and intent data surfaces prospects the moment they're ready.",
-    },
-    {
-      icon: Cpu,
-      code: "02 / ENGINE",
-      title: "Automated Qualification",
-      body: "The Protocol scores, enriches, and routes every lead in under 8 minutes — no humans in the loop.",
-    },
-    {
-      icon: LineChart,
-      code: "03 / OUTPUT",
-      title: "Tactical Growth",
-      body: "Verified, sales-ready opportunities delivered to your pipeline with full attribution and forecast clarity.",
-    },
-  ];
-
+function ConversationScreenshot() {
   return (
-    <section id="protocol" className="relative border-t border-border/60">
-      <div className="mx-auto max-w-7xl px-6 py-28">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-electric">
-            // The VeloSys Protocol
-          </p>
-          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            One engine. Three deployments.
-          </h2>
-          <p className="mt-4 text-muted-foreground">
-            A tightly-integrated system replacing five disconnected tools and a manual SDR team.
-          </p>
+    <div className="glass rounded-2xl overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ backgroundColor: "rgba(29,78,216,0.2)" }}>
+          <MessageSquare className="h-5 w-5" style={{ color: "#1D4ED8" }} />
+        </div>
+        <div>
+          <p className="text-sm font-semibold" style={{ color: "#E5E7EB" }}>VeloSys AI</p>
+          <p className="text-[10px]" style={{ color: "#9CA3AF" }}>Online · Responds in seconds</p>
+        </div>
+      </div>
+
+      {/* Messages */}
+      <div className="space-y-3 p-4">
+        {/* Incoming lead */}
+        <div className="flex items-start gap-2">
+          <div className="rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-[85%]" style={{ backgroundColor: "rgba(255,255,255,0.06)" }}>
+            <p className="text-sm" style={{ color: "#E5E7EB" }}>
+              My AC went out. It's 95 degrees in my house. Can someone come take a look today?
+            </p>
+            <p className="mt-1 text-right text-[10px]" style={{ color: "rgba(156,163,175,0.6)" }}>3:14 PM</p>
+          </div>
         </div>
 
-        <div className="mt-16 grid gap-px overflow-hidden rounded-xl border border-border/60 bg-border/40 md:grid-cols-3">
-          {modules.map(({ icon: Icon, code, title, body }) => (
-            <div
-              key={code}
-              className="group relative bg-black/80 p-8 transition-colors hover:bg-surface-elevated"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-md border border-electric/40 bg-electric/10 text-electric">
-                  <Icon className="h-5 w-5" strokeWidth={2} />
-                </div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  {code}
-                </span>
-              </div>
-              <h3 className="mt-6 font-display text-xl font-bold text-foreground">{title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p>
-              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-electric/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+        {/* AI response */}
+        <div className="flex items-start justify-end gap-2">
+          <div className="rounded-2xl rounded-br-sm gradient-cta px-4 py-2.5 max-w-[85%]">
+            <p className="text-sm text-white">
+              Hi! Sorry about the heat — that's rough. Yes, we can get someone out today. What's your zip code, and is now a good time for our team to call?
+            </p>
+            <p className="mt-1 text-right text-[10px]" style={{ color: "rgba(255,255,255,0.6)" }}>3:14 PM · AI</p>
+          </div>
+        </div>
+
+        {/* Lead reply */}
+        <div className="flex items-start gap-2">
+          <div className="rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-[85%]" style={{ backgroundColor: "rgba(255,255,255,0.06)" }}>
+            <p className="text-sm" style={{ color: "#E5E7EB" }}>
+              77002. Yeah, call anytime.
+            </p>
+            <p className="mt-1 text-right text-[10px]" style={{ color: "rgba(156,163,175,0.6)" }}>3:15 PM</p>
+          </div>
+        </div>
+
+        {/* AI confirmation */}
+        <div className="flex items-start justify-end gap-2">
+          <div className="rounded-2xl rounded-br-sm gradient-cta px-4 py-2.5 max-w-[85%]">
+            <p className="text-sm text-white">
+              Got it. I've scheduled a technician to come by between 4-6 PM today. You'll get a text when they're on the way. {/* z } */}
+            </p>
+            <p className="mt-1 text-right text-[10px]" style={{ color: "rgba(255,255,255,0.6)" }}>3:15 PM · AI</p>
+          </div>
+        </div>
+
+        {/* Summary */}
+        <div className="rounded-lg p-3 border" style={{ borderColor: "rgba(5,150,105,0.3)", backgroundColor: "rgba(5,150,105,0.05)" }}>
+          <div className="flex items-center gap-2">
+            <CheckCircle className="h-4 w-4" style={{ color: "#059669" }} />
+            <span className="text-[11px] font-semibold" style={{ color: "#059669" }}>Appointment booked</span>
+          </div>
+          <p className="mt-1 text-[10px]" style={{ color: "#9CA3AF" }}>
+            AC repair · Today 4-6 PM · Houston, TX
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── SOCIAL PROOF STRIP (light) ── */
+function SocialProof() {
+  return (
+    <section className="border-t" style={{ borderColor: "#E5E7EB", backgroundColor: "#FFFFFF" }}>
+      <div className="mx-auto max-w-6xl px-6 py-10">
+        <p className="text-center text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#6B7280" }}>
+          Trusted by contractors across Houston & beyond
+        </p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-8 md:gap-16">
+          {[
+            { icon: Star, label: "100+ leads responded daily" },
+            { icon: Clock, label: "Responds in under 8 seconds" },
+            { icon: Shield, label: "24/7 coverage" },
+            { icon: CheckCircle, label: "No contracts" },
+          ].map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-2">
+              <Icon className="h-4 w-4" style={{ color: "#1D4ED8" }} />
+              <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: "#6B7280" }}>
+                {label}
+              </span>
             </div>
           ))}
         </div>
@@ -184,67 +194,278 @@ function Protocol() {
   );
 }
 
-function Systems() {
-  const rows = [
-    { label: "Latency, lead → SDR", legacy: "4–48 hrs", velocity: "< 8 min" },
-    { label: "Qualification accuracy", legacy: "~38%", velocity: "94%" },
-    { label: "Tools required", legacy: "5–9", velocity: "1" },
-    { label: "Forecast variance", legacy: "±32%", velocity: "±6%" },
+/* ── PROBLEM SECTION (light) ── */
+function Problem() {
+  return (
+    <section className="relative border-t" style={{ borderColor: "#E5E7EB", backgroundColor: "#F8FAFC" }}>
+      <div className="relative mx-auto max-w-6xl px-6 section-padding">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>
+            // The problem
+          </p>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl" style={{ color: "#1F2937" }}>
+            A leaky pipe. A broken AC.
+            <br />
+            Your phone rings while you're on a job.
+          </h2>
+          <p className="mt-6 text-lg leading-relaxed" style={{ color: "#6B7280" }}>
+            You can't answer. It goes to voicemail. That customer calls your competitor.
+          </p>
+        </div>
+
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
+          {[
+            {
+              stat: "78%",
+              label: "of customers hire the first contractor who responds",
+              source: "US Tech Automations, 2026",
+            },
+            {
+              stat: "12%",
+              label: "of contractors respond within 5 minutes of a lead",
+              source: "Industry benchmark",
+            },
+            {
+              stat: "Voicemail",
+              label: "is where your leads go while you're working",
+              source: "Every single job site",
+            },
+          ].map(({ stat, label, source }) => (
+            <div
+              key={stat}
+              className="card-light rounded-xl p-6 text-center md:p-8"
+            >
+              <p className="text-4xl font-bold md:text-5xl" style={{ color: "#1D4ED8" }}>
+                {stat}
+              </p>
+              <p className="mt-3 text-sm leading-relaxed" style={{ color: "#1F2937" }}>
+                {label}
+              </p>
+              <p className="mt-2 text-[10px] font-semibold" style={{ color: "#9CA3AF" }}>
+                {source}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 mx-auto max-w-xl rounded-xl p-6 text-center card-light">
+          <p className="text-sm" style={{ color: "#6B7280" }}>
+            You pay for leads &mdash; Google LSA, Angi, Thumbtack, your website. Then they go to
+            voicemail while you're working. Every missed call is money you already spent.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── HOW IT WORKS (light) ── */
+function HowItWorks() {
+  const steps = [
+    {
+      step: "01",
+      icon: Phone,
+      title: "Connect your number",
+      desc: "Link your existing phone number to VeloSys. Nothing to install. Takes 5 minutes.",
+    },
+    {
+      step: "02",
+      icon: MessageSquare,
+      title: "AI responds instantly",
+      desc: "Every text, every call &mdash; answered in seconds. The AI qualifies, answers questions, and books jobs.",
+    },
+    {
+      step: "03",
+      icon: Calendar,
+      title: "Booked appointments show up",
+      desc: "Appointments land in your calendar. You get a notification. You just show up and work.",
+    },
   ];
 
   return (
-    <section id="systems" className="relative border-t border-border/60">
-      <div className="mx-auto max-w-6xl px-6 py-28">
-        <div className="grid gap-12 md:grid-cols-2 md:items-center">
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-electric">
-              // Performance Delta
-            </p>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Legacy stacks vs. the Protocol.
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              No fluff. Measured against the median small-business marketing stack across 240
-              deployments.
-            </p>
+    <section id="how-it-works" className="border-t" style={{ borderColor: "#E5E7EB", backgroundColor: "#FFFFFF" }}>
+      <div className="mx-auto max-w-6xl px-6 section-padding">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>
+            // How it works
+          </p>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl" style={{ color: "#1F2937" }}>
+            Three steps. No training. Nothing to install.
+          </h2>
+          <p className="mt-4" style={{ color: "#6B7280" }}>
+            From setup to your first booked job in under 10 minutes.
+          </p>
+        </div>
 
-            <ul className="mt-8 space-y-3">
-              {[
-                "Zero-config deployment in 72 hours",
-                "Single source of truth across teams",
-                "SOC 2 Type II infrastructure",
-              ].map((f) => (
-                <li key={f} className="flex items-start gap-3 text-sm text-foreground">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-electric" strokeWidth={2.5} />
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="glass rounded-xl p-2">
-            <div className="rounded-lg bg-black/60 p-6">
-              <div className="mb-5 flex items-center justify-between border-b border-border/60 pb-4">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  Benchmark · 2026
-                </span>
-                <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-electric">
-                  <span className="h-1.5 w-1.5 rounded-full bg-electric" /> Live
-                </span>
+        <div className="mt-16 grid gap-8 md:grid-cols-3">
+          {steps.map(({ step, icon: Icon, title, desc }) => (
+            <div key={step} className="relative text-center">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full gradient-cta">
+                <Icon className="h-7 w-7 text-white" strokeWidth={1.5} />
               </div>
-              <div className="space-y-4">
-                {rows.map((r) => (
-                  <div key={r.label} className="grid grid-cols-3 items-center gap-3 text-sm">
-                    <span className="text-muted-foreground">{r.label}</span>
-                    <span className="text-right font-mono text-muted-foreground/70 line-through">
-                      {r.legacy}
-                    </span>
-                    <span className="text-right font-display font-bold text-electric">
-                      {r.velocity}
-                    </span>
+              <div className="mt-2 flex items-center justify-center gap-2">
+                <span className="text-sm font-semibold" style={{ color: "#1D4ED8" }}>{step}</span>
+              </div>
+              <h3 className="mt-4 text-xl font-bold" style={{ color: "#1F2937" }}>
+                {title}
+              </h3>
+              <p
+                className="mt-3 text-sm leading-relaxed"
+                style={{ color: "#6B7280" }}
+                dangerouslySetInnerHTML={{ __html: desc }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FEATURES (light) ── */
+function Features() {
+  const features = [
+    {
+      icon: Zap,
+      title: "Instant response",
+      desc: "Texts every lead back in under 8 seconds. Not 5 minutes. Not 5 hours. 8 seconds. Every time.",
+    },
+    {
+      icon: BarChart3,
+      title: "Smart qualification",
+      desc: "The AI asks what service, how urgent, when they're available. You get qualified leads, not tire-kickers.",
+    },
+    {
+      icon: Calendar,
+      title: "Appointment booking",
+      desc: "Books directly into your calendar. You get a notification: New job, Thursday 2 PM, water heater repair.",
+    },
+    {
+      icon: Activity,
+      title: "One dashboard",
+      desc: "Every lead, every conversation, every booking. Your whole pipeline in one place.",
+    },
+    {
+      icon: Smartphone,
+      title: "Works while you work",
+      desc: "24/7. Holidays. While you're on a roof, in a crawlspace, or sleeping. Never miss a lead.",
+    },
+  ];
+
+  return (
+    <section id="features" className="border-t" style={{ borderColor: "#E5E7EB", backgroundColor: "#F8FAFC" }}>
+      <div className="relative mx-auto max-w-6xl px-6 section-padding">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>
+            // Features
+          </p>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl" style={{ color: "#1F2937" }}>
+            What you get with VeloSys
+          </h2>
+          <p className="mt-4" style={{ color: "#6B7280" }}>
+            One tool. One price. Everything you need.
+          </p>
+        </div>
+
+        <div className="mt-16 space-y-4">
+          {features.map(({ icon: Icon, title, desc }) => (
+            <div
+              key={title}
+              className="card-light flex flex-col gap-4 rounded-xl p-6 transition-shadow md:flex-row md:items-start md:gap-6"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg" style={{ border: "1px solid rgba(29,78,216,0.4)", backgroundColor: "rgba(29,78,216,0.1)", color: "#1D4ED8" }}>
+                <Icon className="h-6 w-6" strokeWidth={1.5} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold" style={{ color: "#1F2937" }}>{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: "#6B7280" }}>{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── CASE STUDY (light) ── */
+function ProofSection() {
+  return (
+    <section className="border-t" style={{ borderColor: "#E5E7EB", backgroundColor: "#FFFFFF" }}>
+      <div className="mx-auto max-w-6xl px-6 section-padding">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>
+            // Case study
+          </p>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl" style={{ color: "#1F2937" }}>
+            See what happens with VeloSys
+          </h2>
+          <p className="mt-4" style={{ color: "#6B7280" }}>
+            Real results from an actual HVAC contractor in Houston.
+          </p>
+        </div>
+
+        <div className="mt-16 mx-auto max-w-4xl">
+          <div className="card-light rounded-2xl p-8 md:p-12">
+            <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-12">
+              {/* Before / After numbers */}
+              <div className="flex-1">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>Before</p>
+                <div className="mt-3 space-y-4">
+                  <div className="rounded-lg p-4 border" style={{ borderColor: "rgba(220,38,38,0.3)", backgroundColor: "rgba(220,38,38,0.04)" }}>
+                    <p className="text-2xl font-bold" style={{ color: "#DC2626" }}>
+                      22% of calls missed
+                    </p>
+                    <p className="mt-1 text-sm" style={{ color: "#6B7280" }}>
+                      One in five customers calling never got through to a person.
+                    </p>
                   </div>
-                ))}
+                  <div className="rounded-lg p-4 card-light">
+                    <p className="text-2xl font-bold" style={{ color: "#1F2937" }}>
+                      15+ min avg. response
+                    </p>
+                    <p className="mt-1 text-sm" style={{ color: "#6B7280" }}>
+                      When someone did get a call back, the customer had already moved on.
+                    </p>
+                  </div>
+                </div>
               </div>
+
+              <div className="hidden md:flex items-center justify-center">
+                <ArrowRight className="h-8 w-8" style={{ color: "#1D4ED8" }} />
+              </div>
+
+              <div className="flex-1">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#059669" }}>After 30 days with VeloSys</p>
+                <div className="mt-3 space-y-4">
+                  <div className="rounded-lg p-4 border" style={{ borderColor: "rgba(5,150,105,0.3)", backgroundColor: "rgba(5,150,105,0.04)" }}>
+                    <p className="text-2xl font-bold" style={{ color: "#059669" }}>
+                      100% of leads responded
+                    </p>
+                    <p className="mt-1 text-sm" style={{ color: "#6B7280" }}>
+                      Every single lead got a response in under 10 seconds.
+                    </p>
+                  </div>
+                  <div className="rounded-lg p-4 border" style={{ borderColor: "rgba(5,150,105,0.3)", backgroundColor: "rgba(5,150,105,0.04)" }}>
+                    <p className="text-2xl font-bold" style={{ color: "#059669" }}>
+                      40% more booked jobs
+                    </p>
+                    <p className="mt-1 text-sm" style={{ color: "#6B7280" }}>
+                      More appointments booked. More jobs completed. More revenue.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t" style={{ borderColor: "#E5E7EB" }}>
+              <p className="text-sm italic" style={{ color: "#6B7280" }}>
+                &ldquo;I was losing jobs while I was on other jobs. Now VeloSys handles the front end. I just
+                show up, fix the problem, and move to the next one.&rdquo;
+              </p>
+              <p className="mt-3 text-[11px] font-semibold uppercase tracking-wider" style={{ color: "#9CA3AF" }}>
+                &mdash; HVAC contractor, Houston, TX
+              </p>
             </div>
           </div>
         </div>
@@ -253,65 +474,168 @@ function Systems() {
   );
 }
 
+/* ── PRICING PREVIEW (light) ── */
+function PricingPreview() {
+  return (
+    <section className="border-t" style={{ borderColor: "#E5E7EB", backgroundColor: "#F8FAFC" }}>
+      <div className="mx-auto max-w-6xl px-6 section-padding">
+        <div className="card-light mx-auto max-w-xl rounded-2xl p-8 text-center md:p-12">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>
+            // Pricing
+          </p>
+          <p className="mt-4 text-4xl font-bold md:text-5xl" style={{ color: "#1F2937" }}>
+            $200
+            <span className="text-lg font-normal" style={{ color: "#6B7280" }}>/month</span>
+          </p>
+          <p className="mt-3 text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#6B7280" }}>
+            No contracts &middot; Cancel anytime &middot; Everything included
+          </p>
+          <ul className="mx-auto mt-8 max-w-xs space-y-3 text-left">
+            {[
+              "Instant AI lead response",
+              "Smart lead qualification",
+              "Appointment booking",
+              "One dashboard for all leads",
+              "24/7 coverage",
+              "Unlimited leads & team members",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm" style={{ color: "#1F2937" }}>
+                <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "#059669" }} />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8">
+            <Link
+              to="/pricing"
+              className="btn-primary w-full sm:w-auto font-semibold text-sm uppercase tracking-wider"
+            >
+              See full pricing
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FAQ (light) ── */
+function FAQ() {
+  const faqs = [
+    {
+      q: "How fast does the AI respond?",
+      a: "Under 8 seconds, 24/7. Whether it's 2 PM on a Tuesday or 3 AM on Sunday, every lead gets an instant response.",
+    },
+    {
+      q: "What if a lead needs a human?",
+      a: "The AI hands off to you immediately when needed. You get a notification and take over the conversation right from your phone.",
+    },
+    {
+      q: "What tools do I need to get started?",
+      a: "Just a phone number. Nothing to install, nothing to configure. You link your number and the AI starts working immediately.",
+    },
+    {
+      q: "Can I cancel anytime?",
+      a: "Yes. No contracts. No cancellation fees. No hidden penalties. You're in control.",
+    },
+    {
+      q: "Which contractors is this for?",
+      a: "Plumbers, HVAC, roofers, electricians, junk removal, landscapers, painters — any home-service trade that takes leads by phone or text.",
+    },
+    {
+      q: "How is this different from [competitor]?",
+      a: "VeloSys has one purpose: respond to every lead instantly. No complex software stack. No add-on costs. No per-user fees. $200 flat, everything included.",
+    },
+  ];
+
+  return (
+    <section id="faq" className="border-t" style={{ borderColor: "#E5E7EB", backgroundColor: "#FFFFFF" }}>
+      <div className="mx-auto max-w-3xl px-6 section-padding">
+        <div className="text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>
+            // FAQ
+          </p>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl" style={{ color: "#1F2937" }}>
+            Questions? We've got answers.
+          </h2>
+        </div>
+
+        <div className="mt-12 space-y-4">
+          {faqs.map(({ q, a }) => (
+            <details
+              key={q}
+              className="group card-light rounded-xl transition-shadow"
+            >
+              <summary className="flex cursor-pointer items-center justify-between px-6 py-5 text-sm font-medium" style={{ color: "#1F2937" }}>
+                {q}
+                <ChevronDown className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" style={{ color: "#6B7280" }} />
+              </summary>
+              <div className="px-6 pb-5">
+                <p className="text-sm leading-relaxed" style={{ color: "#6B7280" }}>{a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── LEAD FLOW / INTAKE FORM (light) ── */
 function LeadFlow() {
-  const [form, setForm] = useState({ name: "", phone: "", email: "", service: "Lead Intelligence" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", service: "Lead Response" });
   const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">("idle");
+  const send = useServerFn(submitIntake);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("submitting");
     try {
-      await new Promise((r) => setTimeout(r, 600));
+      await send({ data: { name: form.name, phone: form.phone, email: form.email, service: form.service } });
       setStatus("ok");
-      setForm({ name: "", phone: "", email: "", service: "Lead Intelligence" });
+      setForm({ name: "", phone: "", email: "", service: "Lead Response" });
     } catch {
       setStatus("error");
     }
   }
 
   return (
-    <section id="leadflow" className="relative border-t border-border/60">
-      <div className="absolute inset-0 grid-bg opacity-40" />
-      <div className="absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple/10 blur-[120px]" />
-
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-28 md:grid-cols-2 md:items-center">
+    <section id="get-started" className="border-t" style={{ borderColor: "#E5E7EB", backgroundColor: "#F8FAFC" }}>
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 section-padding md:grid-cols-2 md:items-center">
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-electric">
-            // LeadFlow · Intake
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: "#1D4ED8" }}>
+            // Get started
           </p>
-          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Deploy the Protocol to your pipeline.
+          <h2 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl" style={{ color: "#1F2937" }}>
+            Stop missing leads.
           </h2>
-          <p className="mt-5 max-w-md text-muted-foreground">
-            Submit your intake. A systems engineer will provision your deployment within one business
-            day. No sales calls, no decks.
+          <p className="mt-5 max-w-md text-lg leading-relaxed" style={{ color: "#6B7280" }}>
+            Get started with VeloSys. No credit card required. Cancel anytime.
           </p>
 
           <div className="mt-8 grid grid-cols-2 gap-4">
             {[
-              { icon: Zap, t: "72hr deploy" },
-              { icon: Shield, t: "SOC 2 II" },
-              { icon: Activity, t: "Real-time ops" },
-              { icon: Cpu, t: "API-native" },
+              { icon: Zap, t: "5-min setup" },
+              { icon: CheckCircle, t: "No contracts" },
+              { icon: Activity, t: "Real-time" },
+              { icon: Clock, t: "24/7 coverage" },
             ].map(({ icon: Icon, t }) => (
               <div
                 key={t}
-                className="flex items-center gap-3 rounded-md border border-border/60 bg-white/[0.02] px-4 py-3"
+                className="card-light flex items-center gap-3 rounded-md px-4 py-3"
               >
-                <Icon className="h-4 w-4 text-electric" strokeWidth={2} />
-                <span className="font-mono text-xs uppercase tracking-wider text-foreground">{t}</span>
+                <Icon className="h-4 w-4 shrink-0" strokeWidth={2} style={{ color: "#1D4ED8" }} />
+                <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#1F2937" }}>{t}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <form onSubmit={onSubmit} className="glass rounded-xl p-6 md:p-8">
-          <div className="mb-6 flex items-center justify-between border-b border-border/60 pb-4">
-            <span className="font-display text-sm font-bold uppercase tracking-widest text-foreground">
-              LeadFlow Intake
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-electric">
-              Secure · Encrypted
+        <form onSubmit={onSubmit} className="card-light rounded-xl p-6 md:p-8">
+          <div className="mb-6 flex items-center justify-between pb-4 border-b" style={{ borderColor: "#E5E7EB" }}>
+            <span className="text-sm font-bold uppercase tracking-widest" style={{ color: "#1F2937" }}>
+              Get in touch
             </span>
           </div>
 
@@ -339,17 +663,20 @@ function LeadFlow() {
               required
             />
             <div>
-              <label className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              <label className="mb-2 block text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#6B7280" }}>
                 Service
               </label>
               <select
                 value={form.service}
                 onChange={(e) => setForm({ ...form, service: e.target.value })}
-                className="h-12 w-full rounded-md border border-border bg-white/[0.03] px-4 text-sm text-foreground focus:border-electric focus:outline-none focus:ring-2 focus:ring-electric/30"
+                className="h-12 w-full rounded-lg px-4 text-sm border"
+                style={{ color: "#1F2937", borderColor: "#E5E7EB", backgroundColor: "#FFFFFF" }}
               >
-                <option>Lead Intelligence</option>
-                <option>Tactical Growth System</option>
-                <option>Full Protocol Deployment</option>
+                <option>Lead Response</option>
+                <option>HVAC / Plumbing</option>
+                <option>Roofing / Construction</option>
+                <option>Junk Removal / Landscaping</option>
+                <option>Other</option>
               </select>
             </div>
           </div>
@@ -357,20 +684,20 @@ function LeadFlow() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md gradient-cta font-display text-xs font-bold uppercase tracking-widest text-white shadow-[0_0_40px_-10px_rgba(29,78,216,0.6)] transition-opacity hover:opacity-90 disabled:opacity-60"
+            className="mt-6 btn-primary w-full font-semibold text-sm uppercase tracking-wider disabled:opacity-60"
           >
-            {status === "submitting" ? "Transmitting..." : "Initiate Deployment"}
+            {status === "submitting" ? "Sending..." : "Get more leads"}
             <ArrowRight className="h-4 w-4" />
           </button>
 
           {status === "ok" && (
-            <p className="mt-4 text-center font-mono text-xs text-electric">
-              ✓ Intake received. A systems engineer will reach out within 24h.
+            <p className="mt-4 text-center text-xs font-semibold" style={{ color: "#1D4ED8" }}>
+              ✓ Thanks! We'll reach out within 24 hours.
             </p>
           )}
           {status === "error" && (
-            <p className="mt-4 text-center font-mono text-xs text-destructive">
-              Transmission failed. Retry or email ops@velosys.io.
+            <p className="mt-4 text-center text-xs" style={{ color: "#DC2626" }}>
+              Something went wrong. Email us at ops@velosys.io.
             </p>
           )}
         </form>
@@ -379,6 +706,32 @@ function LeadFlow() {
   );
 }
 
+/* ── STICKY MOBILE CTA BAR ── */
+function MobileStickyCTA() {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-50 border-t md:hidden" style={{ borderColor: "rgba(255,255,255,0.06)", backgroundColor: "rgba(0,0,0,0.9)", backdropFilter: "blur(20px)" }}>
+      <div className="flex items-center gap-3 px-4 py-3">
+        <a
+          href="tel:+183****0199"
+          className="inline-flex h-14 flex-1 items-center justify-center gap-2 rounded-lg text-sm font-semibold transition-colors"
+          style={{ color: "#E5E7EB", border: "2px solid rgba(255,255,255,0.15)" }}
+        >
+          <Phone className="h-4 w-4" />
+          Call now
+        </a>
+        <a
+          href="#get-started"
+          className="btn-primary flex-1 font-semibold text-sm uppercase tracking-wider"
+        >
+          Get more leads
+          <ArrowRight className="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ── FIELD COMPONENT ── */
 function Field({
   label,
   value,
@@ -396,7 +749,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+      <label className="mb-2 block text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#6B7280" }}>
         {label}
       </label>
       <input
@@ -405,43 +758,27 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="h-12 w-full rounded-md border border-border bg-white/[0.03] px-4 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-electric focus:outline-none focus:ring-2 focus:ring-electric/30"
+        className="h-12 w-full rounded-lg px-4 text-sm border"
+        style={{ color: "#1F2937", borderColor: "#E5E7EB", backgroundColor: "#FFFFFF" }}
       />
     </div>
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-border/60 bg-black/80">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-10 sm:flex-row">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-md gradient-cta">
-            <Activity className="h-3.5 w-3.5 text-white" strokeWidth={2.5} />
-          </div>
-          <span className="font-display text-sm font-bold tracking-widest text-foreground">
-            VELOSYS
-          </span>
-        </div>
-        <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-          © 2026 · VeloSys Protocol v4.2
-        </p>
-      </div>
-    </footer>
-  );
-}
-
+/* ── INDEX PAGE ── */
 function Index() {
   return (
-    <div className="min-h-screen">
-      <Nav />
-      <main>
-        <Hero />
-        <Protocol />
-        <Systems />
-        <LeadFlow />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Hero />
+      <SocialProof />
+      <Problem />
+      <HowItWorks />
+      <Features />
+      <ProofSection />
+      <PricingPreview />
+      <FAQ />
+      <LeadFlow />
+      <MobileStickyCTA />
+    </>
   );
 }
