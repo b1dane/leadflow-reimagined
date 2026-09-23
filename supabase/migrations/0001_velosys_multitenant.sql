@@ -1,11 +1,10 @@
--- VeloSys Multi-Tenant Schema
--- Run this in Supabase SQL Editor (or via supabase db push)
+-- VeloSys Multi-Tenant Schema (safe upgrade)
+-- Run this entire script in Supabase SQL Editor
 
--- Enable required extensions
 create extension if not exists "pgcrypto";
 
 -- ─────────────────────────────────────────────────────────────
--- TENANTS (Businesses)
+-- TENANTS
 -- ─────────────────────────────────────────────────────────────
 create table if not exists public.tenants (
   id                uuid primary key default gen_random_uuid(),
@@ -27,7 +26,7 @@ create index if not exists tenants_owner_idx on public.tenants(owner_user_id);
 create index if not exists tenants_slug_idx on public.tenants(slug);
 
 -- ─────────────────────────────────────────────────────────────
--- PHONE NUMBERS (Twilio)
+-- PHONE NUMBERS
 -- ─────────────────────────────────────────────────────────────
 create table if not exists public.phone_numbers (
   id                uuid primary key default gen_random_uuid(),
@@ -44,33 +43,49 @@ create table if not exists public.phone_numbers (
 create index if not exists phone_numbers_tenant_idx on public.phone_numbers(tenant_id);
 
 -- ─────────────────────────────────────────────────────────────
--- LEADS
+-- LEADS — upgrade existing table if present
 -- ─────────────────────────────────────────────────────────────
 create table if not exists public.leads (
   id                uuid primary key default gen_random_uuid(),
-  tenant_id         uuid not null references public.tenants(id) on delete cascade,
-  homeowner_name    text not null,
-  phone             text,
-  email             text,
-  company           text,
-  address           text,
-  city              text,
-  source            text not null default 'manual',
-  status            text not null default 'new'
-                    check (status in (
-                      'new', 'qualifying', 'follow_up', 'booked',
-                      'won', 'lost', 'opted_out'
-                    )),
-  score             integer not null default 0 check (score >= 0 and score <= 100),
-  estimated_value   numeric(12,2),
-  custom_fields     jsonb not null default '{}'::jsonb,
-  next_follow_up_at timestamptz,
-  follow_up_step    integer not null default 0,
-  notes             text,
-  created_at        timestamptz not null default now(),
-  updated_at        timestamptz not null default now()
+  created_at        timestamptz not null default now()
 );
 
+-- Add columns that may be missing (safe on existing LeadFlow table)
+alter table public.leads add column if not exists tenant_id uuid;
+alter table public.leads add column if not exists homeowner_name text;
+alter table public.leads add column if not exists phone text;
+alter table public.leads add column if not exists email text;
+alter table public.leads add column if not exists company text;
+alter table public.leads add column if not exists address text;
+alter table public.leads add column if not exists city text;
+alter table public.leads add column if not exists source text default 'manual';
+alter table public.leads add column if not exists status text default 'new';
+alter table public.leads add column if not exists score integer default 0;
+alter table public.leads add column if not exists estimated_value numeric(12,2);
+alter table public.leads add column if not exists custom_fields jsonb default '{}'::jsonb;
+alter table public.leads add column if not exists next_follow_up_at timestamptz;
+alter table public.leads add column if not exists follow_up_step integer default 0;
+alter table public.leads add column if not exists notes text;
+alter table public.leads add column if not exists updated_at timestamptz default now();
+alter table public.leads add column if not exists user_id uuid;
+
+-- Backfill homeowner_name from old "name" column if it exists
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'leads' and column_name = 'name'
+  ) then
+    update public.leads
+    set homeowner_name = name
+    where homeowner_name is null and name is not null;
+  end if;
+end $$;
+
+-- Ensure homeowner_name has a value
+update public.leads set homeowner_name = coalesce(homeowner_name, 'Unknown') where homeowner_name is null;
+
+-- Indexes
 create index if not exists leads_tenant_idx on public.leads(tenant_id);
 create index if not exists leads_status_idx on public.leads(tenant_id, status);
 create index if not exists leads_next_followup_idx on public.leads(tenant_id, next_follow_up_at)
@@ -96,7 +111,7 @@ create index if not exists messages_lead_idx on public.messages(lead_id);
 create index if not exists messages_tenant_idx on public.messages(tenant_id);
 
 -- ─────────────────────────────────────────────────────────────
--- SEQUENCES (Follow-up templates)
+-- SEQUENCES
 -- ─────────────────────────────────────────────────────────────
 create table if not exists public.sequences (
   id                uuid primary key default gen_random_uuid(),
@@ -154,18 +169,22 @@ begin
 end;
 $$ language plpgsql;
 
+drop trigger if exists tenants_updated_at on public.tenants;
 create trigger tenants_updated_at
   before update on public.tenants
   for each row execute function public.set_updated_at();
 
+drop trigger if exists leads_updated_at on public.leads;
 create trigger leads_updated_at
   before update on public.leads
   for each row execute function public.set_updated_at();
 
+drop trigger if exists sequences_updated_at on public.sequences;
 create trigger sequences_updated_at
   before update on public.sequences
   for each row execute function public.set_updated_at();
 
+drop trigger if exists appointments_updated_at on public.appointments;
 create trigger appointments_updated_at
   before update on public.appointments
   for each row execute function public.set_updated_at();
@@ -188,6 +207,21 @@ returns setof uuid as $$
   select id from public.tenants where owner_user_id = auth.uid();
 $$ language sql security definer stable;
 
+-- Drop old policies so we can recreate cleanly
+do $$
+declare
+  r record;
+begin
+  for r in
+    select policyname, tablename
+    from pg_policies
+    where schemaname = 'public'
+      and tablename in ('tenants','phone_numbers','leads','messages','sequences','appointments','tenant_members')
+  loop
+    execute format('drop policy if exists %I on public.%I', r.policyname, r.tablename);
+  end loop;
+end $$;
+
 create policy "Users can view their tenants"
   on public.tenants for select
   using (id in (select public.user_tenant_ids()));
@@ -206,7 +240,10 @@ create policy "Users can manage phone numbers of their tenants"
 
 create policy "Users can manage leads of their tenants"
   on public.leads for all
-  using (tenant_id in (select public.user_tenant_ids()));
+  using (
+    tenant_id in (select public.user_tenant_ids())
+    or user_id = auth.uid()
+  );
 
 create policy "Users can manage messages of their tenants"
   on public.messages for all
@@ -237,56 +274,46 @@ create policy "Owners can manage members"
   );
 
 -- ─────────────────────────────────────────────────────────────
--- SEED: Industry starter sequences
+-- SEED: Industry starter sequences (only if not already present)
 -- ─────────────────────────────────────────────────────────────
-insert into public.sequences (tenant_id, name, industry, is_active, steps) values
-(
-  null,
-  'Standard Recovery – General',
-  'general',
-  true,
+insert into public.sequences (tenant_id, name, industry, is_active, steps)
+select null, 'Standard Recovery – General', 'general', true,
   '[
     {"step": 0, "delay_hours": 0,  "template": "Hey {{first_name}}, thanks for reaching out! This is the team at {{company_name}}. How can we help you today? Reply STOP to opt out."},
     {"step": 1, "delay_hours": 24, "template": "Hi {{first_name}}, just following up on your request. Still interested? Happy to answer any questions. Reply STOP to opt out."},
     {"step": 2, "delay_hours": 72, "template": "Hi {{first_name}}, checking in one more time. We have openings this week if you''d like to schedule. Reply STOP to opt out."},
     {"step": 3, "delay_hours": 168,"template": "Hey {{first_name}}, final follow-up from {{company_name}}. Should we hold a spot for you or close out this request? Reply STOP to opt out."}
   ]'::jsonb
-),
-(
-  null,
-  'Standard Recovery – HVAC',
-  'hvac',
-  true,
+where not exists (select 1 from public.sequences where tenant_id is null and industry = 'general');
+
+insert into public.sequences (tenant_id, name, industry, is_active, steps)
+select null, 'Standard Recovery – HVAC', 'hvac', true,
   '[
     {"step": 0, "delay_hours": 0,  "template": "Hey {{first_name}}, this is {{company_name}}. Sorry you''re dealing with {{service}} issues. What''s your zip code and is now a good time for us to call? Reply STOP to opt out."},
     {"step": 1, "delay_hours": 24, "template": "Hi {{first_name}}, just confirming we received your request. We can usually get someone out same-day or next-day. Want us to schedule? Reply STOP to opt out."},
     {"step": 2, "delay_hours": 72, "template": "Hi {{first_name}}, still need help with your system? We have technicians available this week. Reply STOP to opt out."},
     {"step": 3, "delay_hours": 168,"template": "Hey {{first_name}}, final check-in from {{company_name}}. Should we hold a service window or archive this request? Reply STOP to opt out."}
   ]'::jsonb
-),
-(
-  null,
-  'Standard Recovery – Fence',
-  'fence',
-  true,
+where not exists (select 1 from public.sequences where tenant_id is null and industry = 'hvac');
+
+insert into public.sequences (tenant_id, name, industry, is_active, steps)
+select null, 'Standard Recovery – Fence', 'fence', true,
   '[
     {"step": 0, "delay_hours": 0,  "template": "Hey {{first_name}}, it''s {{company_name}}! Saw we missed you. Still looking for a fence quote? Roughly how many feet, and wood, vinyl, or aluminum? Reply STOP to opt out."},
     {"step": 1, "delay_hours": 24, "template": "Hey {{first_name}}, just confirming you got our estimate. Any questions on materials or post footings? Reply STOP to opt out."},
     {"step": 2, "delay_hours": 72, "template": "Hi {{first_name}}, quick check on your fence project. We can waive the equipment haul fee if we book back-to-back jobs in your area. Interested? Reply STOP to opt out."},
     {"step": 3, "delay_hours": 168,"template": "Hey {{first_name}}, final follow-up from {{company_name}}. Should we hold your build date or close the file? Reply STOP to opt out."}
   ]'::jsonb
-),
-(
-  null,
-  'Standard Recovery – Roofing',
-  'roofing',
-  true,
+where not exists (select 1 from public.sequences where tenant_id is null and industry = 'fence');
+
+insert into public.sequences (tenant_id, name, industry, is_active, steps)
+select null, 'Standard Recovery – Roofing', 'roofing', true,
   '[
     {"step": 0, "delay_hours": 0,  "template": "Hey {{first_name}}, this is {{company_name}}. Thanks for reaching out about your roof. Is this for a repair or full replacement, and what''s the best number to reach you? Reply STOP to opt out."},
     {"step": 1, "delay_hours": 24, "template": "Hi {{first_name}}, following up on your roofing request. We offer free inspections this week. Want us to put you on the schedule? Reply STOP to opt out."},
     {"step": 2, "delay_hours": 72, "template": "Hi {{first_name}}, still thinking about the roof work? We can often work with insurance and get you a clear timeline. Reply STOP to opt out."},
     {"step": 3, "delay_hours": 168,"template": "Hey {{first_name}}, final note from {{company_name}}. Should we keep a slot open or close this request? Reply STOP to opt out."}
   ]'::jsonb
-);
+where not exists (select 1 from public.sequences where tenant_id is null and industry = 'roofing');
 
 notify pgrst, 'reload schema';
