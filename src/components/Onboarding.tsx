@@ -2,39 +2,21 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Loader2, Building2, Sparkles } from "lucide-react";
-import { createTenant } from "@/lib/tenants";
-import { useTenant } from "@/hooks/use-tenant";
-
-const INDUSTRIES = [
-  { value: "general", label: "General / Other" },
-  { value: "hvac", label: "HVAC" },
-  { value: "fence", label: "Fence / Outdoor Living" },
-  { value: "roofing", label: "Roofing" },
-  { value: "plumbing", label: "Plumbing" },
-  { value: "electrical", label: "Electrical" },
-  { value: "solar", label: "Solar" },
-  { value: "landscaping", label: "Landscaping / Tree Service" },
-  { value: "other", label: "Other service business" },
-] as const;
+import { createOrganization } from "@/lib/organizations";
+import { useOrg } from "@/hooks/use-org";
 
 export function Onboarding({ onComplete }: { onComplete?: () => void }) {
-  const create = useServerFn(createTenant);
-  const { refetch, setActiveTenantId } = useTenant();
+  const create = useServerFn(createOrganization);
+  const { refetch, setActiveOrgId } = useOrg();
 
   const [name, setName] = useState("");
-  const [industry, setIndustry] = useState<string>("general");
-  const [brandVoice, setBrandVoice] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const mut = useMutation({
-    mutationFn: (payload: {
-      name: string;
-      industry: string;
-      brand_voice?: string;
-    }) => create({ data: payload as never }),
-    onSuccess: (tenant) => {
+    mutationFn: (payload: { name: string }) => create({ data: payload as never }),
+    onSuccess: (org) => {
       refetch();
-      if (tenant?.id) setActiveTenantId(tenant.id);
+      if (org?.id) setActiveOrgId(org.id);
       onComplete?.();
     },
     onError: (e) => {
@@ -49,11 +31,7 @@ export function Onboarding({ onComplete }: { onComplete?: () => void }) {
       setError("Business name is required");
       return;
     }
-    mut.mutate({
-      name: name.trim(),
-      industry,
-      brand_voice: brandVoice.trim() || undefined,
-    });
+    mut.mutate({ name: name.trim() });
   };
 
   return (
@@ -89,38 +67,6 @@ export function Onboarding({ onComplete }: { onComplete?: () => void }) {
                 className="w-full rounded-lg border border-input bg-background pl-10 pr-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
               />
             </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium uppercase tracking-wider text-muted-foreground mb-1.5">
-              Industry
-            </label>
-            <select
-              value={industry}
-              onChange={(e) => setIndustry(e.target.value)}
-              className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
-            >
-              {INDUSTRIES.map((i) => (
-                <option key={i.value} value={i.value}>
-                  {i.label}
-                </option>
-              ))}
-            </select>
-            <p className="mt-1.5 text-xs text-muted-foreground">
-              We’ll load a ready-made follow-up sequence for this industry.
-            </p>
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium uppercase tracking-wider text-muted-foreground mb-1.5">
-              Brand voice (optional)
-            </label>
-            <input
-              value={brandVoice}
-              onChange={(e) => setBrandVoice(e.target.value)}
-              placeholder="e.g. friendly, direct, professional"
-              className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
-            />
           </div>
 
           {error && (
